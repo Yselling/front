@@ -4,9 +4,15 @@ import React from "react";
 import Style from "./Button.module.css";
 
 const Button = (props) => {
+    const [buttonTitle, setButtonTitle] = React.useState(props.buttonTitle);
+
+    const buttonAction = () => {
+        setButtonTitle("Clicked");
+    }
+
     return (
-        <button className={Style.button}>
-            {props.buttonTitle}
+        <button onClick={buttonAction} className={Style.button}>
+            {buttonTitle}
         </button>
     );
 }
