@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Header from './components/organisms/Header/Header';
+import Card from './components/atoms/Card/Card';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('Home');
@@ -13,7 +14,7 @@ function App() {
     <div className="App">
       <Header buttons={["Home", "Store", "About", "Contact"]} onButtonClick={handleButtonClick} />
       <div>
-        {currentPage === 'Home' && <p>Contenu de la page d'accueil</p>}
+        {currentPage === 'Home' && <Card bg-color="red" title="Titre de la carte" text="Texte de la carte" />}
         {currentPage === 'Store' && <p>Contenu de la page Store</p>}
         {currentPage === 'About' && <p>Contenu de la page À Propos</p>}
         {currentPage === 'Contact' && <p>Contenu de la page Contact</p>}
