@@ -6,6 +6,7 @@ import Home from './components/pages/Home';
 import Default from './components/templates/Default';
 import Store from './components/pages/Store';
 import About from './components/pages/About';
+import Contact from './components/pages/Contact';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('Home');
@@ -21,7 +22,7 @@ function App() {
         {currentPage === 'Home' && <Home/>}
         {currentPage === 'Store' && <Store/>}
         {currentPage === 'About' && <About/>}
-        {currentPage === 'Contact' && <p>Contenu de la page Contact</p>}
+        {currentPage === 'Contact' && <Contact/>}
       </div>
     </div>
   );
