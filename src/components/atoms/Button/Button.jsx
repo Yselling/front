@@ -1,18 +1,10 @@
 import React from "react";
-
-// INTERNAL IMPORT
 import Style from "./Button.module.css";
 
 const Button = (props) => {
-    const [buttonTitle, setButtonTitle] = React.useState(props.buttonTitle);
-
-    const buttonAction = () => {
-        setButtonTitle("Clicked");
-    }
-
     return (
-        <button onClick={buttonAction} className={Style.button}>
-            {buttonTitle}
+        <button onClick={props.onClick} className={Style.button}>
+        {props.buttonTitle}
         </button>
     );
 }
