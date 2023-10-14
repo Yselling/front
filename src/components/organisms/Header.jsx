@@ -5,26 +5,30 @@ import Button from '../atoms/Button';
 
 const Header = ({ buttons, onButtonClick, isLogin }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [theme, setTheme] = useState("light");
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem('theme') || 'light';
+    });
 
     const handleMobileMenuToggle = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     };
 
     const handleThemeToggle = () => {
-        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     };
 
     useEffect(() => {
         const body = document.body;
         body.style.transition = 'background-color 1s ease';
-        if (theme === "dark") {
-            body.style.backgroundColor = "#242424";
-            body.style.color = "white";
+        if (theme === 'dark') {
+            body.style.backgroundColor = '#242424';
+            body.style.color = 'white';
         } else {
-            body.style.backgroundColor = "#f3fbff";
-            body.style.color = "black";
+            body.style.backgroundColor = '#f3fbff';
+            body.style.color = 'black';
         }
+
+        localStorage.setItem('theme', theme);
     }, [theme]);
 
     return (
@@ -33,7 +37,7 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
                 <div className="flex items-center space-x-4">
                     <Button
                         buttonTitle="Yselling⚡"
-                        onClick={() => onButtonClick("accueil")}
+                        onClick={() => onButtonClick('accueil')}
                         className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
                     />
                     {buttons.map((element, index) => (
@@ -56,14 +60,14 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
                     {isLogin ? (
                         <>
                             <Button
-                                buttonTitle={theme === "dark" ? "Light Mode" : "Dark Mode"}
+                                buttonTitle={theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
                                 onClick={handleThemeToggle}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white flex items-center"
-                                icon={theme === "dark" ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
+                                icon={theme === 'dark' ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
                             />
                             <Button
                                 buttonTitle="Profil"
-                                onClick={() => onButtonClick("profil")}
+                                onClick={() => onButtonClick('profil')}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
                                 icon={<FaUser />}
                             />
@@ -74,11 +78,11 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
                                 buttonTitle=""
                                 onClick={handleThemeToggle}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white flex items-center"
-                                icon={theme === "dark" ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
+                                icon={theme === 'dark' ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
                             />
                             <Button
                                 buttonTitle="Connexion"
-                                onClick={() => onButtonClick("login")}
+                                onClick={() => onButtonClick('login')}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
                                 icon={<FaUser />}
                             />
@@ -103,6 +107,6 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
             )}
         </nav>
     );
-}
+};
 
 export default Header;
