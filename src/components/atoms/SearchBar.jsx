@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
                 placeholder="Rechercher..."
                 value={searchTerm}
                 onChange={handleInputChange}
-                className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-600 w-48 sm:w-64 md:w-96" // Vous pouvez ajuster les classes ici
+                className="py-2 px-4 border text-black border-gray-300 rounded-md focus:outline-none focus:border-indigo-600 w-48 sm:w-64 md:w-96" // Vous pouvez ajuster les classes ici
             />
         </div>
     );
