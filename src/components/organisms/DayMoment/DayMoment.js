@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import timeApi from "../../../toolkit/api.config";
+import api from "../../../toolkit/api.config";
 
 const DayMoment = () => {
     const [data, setData] = useState(null);
@@ -10,7 +10,7 @@ const DayMoment = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             let lat = position.coords.latitude;
             let long = position.coords.longitude;
-            axios(timeApi("GET", `lat=${lat}&lng=${long}`))
+            axios(api("GET", `lat=${lat}&lng=${long}`))
                 .then((response) => {
                 setData(response.data.results);
                 setDataIsLoaded(true);

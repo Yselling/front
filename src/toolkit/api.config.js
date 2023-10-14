@@ -1,4 +1,4 @@
-const timeApi = (method, path) => {
+const api = (method, path) => {
     const config = {
         baseUrl: "https://api.sunrise-sunset.org/json?",
         path: path,
@@ -24,4 +24,4 @@ const timeApi = (method, path) => {
     };
 };
 
-export default timeApi;
+export default api;
