@@ -17,7 +17,7 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
 
     useEffect(() => {
         const body = document.body;
-
+        body.style.transition = 'background-color 1s ease';
         if (theme === "dark") {
             body.style.backgroundColor = "#242424";
             body.style.color = "white";
