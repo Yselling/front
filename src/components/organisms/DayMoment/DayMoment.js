@@ -1,58 +1,52 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import api from "../../../toolkit/api.config";
+import "./DayMoment.css";
+import Overlay from "../../atoms/Overlay";
 
 const DayMoment = () => {
-    const [data, setData] = useState(null);
-    const [DataIsLoaded, setDataIsLoaded] = useState(false);
+  const [data, setData] = useState(null);
+  const [dataIsLoaded, setDataIsLoaded] = useState(false);
 
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            let lat = position.coords.latitude;
-            let long = position.coords.longitude;
-            axios(api("GET", `lat=${lat}&lng=${long}`))
-                .then((response) => {
-                setData(response.data.results);
-                setDataIsLoaded(true);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      let lat = position.coords.latitude;
+      let long = position.coords.longitude;
+      axios(api("GET", `lat=${lat}&lng=${long}`))
+        .then((response) => {
+          setData(response.data.results);
+          setDataIsLoaded(true);
+        })
+        .catch((error) => {
+          console.log(error);
         });
-    }, []);
+    });
+  }, []);
 
-    if (DataIsLoaded) {
-        let sunrise = data.sunrise;
-        let sunset = data.sunset;
+  if (dataIsLoaded) {
+    let sunrise = data.sunrise;
+    let sunset = data.sunset;
 
-        let actualTime = new Date().toLocaleTimeString("fr-FR", { hour12: false });
+    let actualTime = new Date().toLocaleTimeString("en-US", { hour12: true });
 
-        let dayTime = (actualTime > sunrise && actualTime < sunset) ? "Night" : "Day";
-
-        // switch the root background color depending on the day moment, with a transition effect
-        let root = document.getElementById('root');
-        if (dayTime === "Night") {
-            root.style.backgroundColor = "black";
-            root.style.transition = "background-color 1s ease-in-out";
-        } else {
-            root.style.backgroundColor = "white";
-            root.style.transition = "background-color 1s ease-in-out";
-        }
-
-        return (
-            <div>
-                <h1>Day Moment</h1>
-                <p>It's {dayTime}!</p>
-            </div>
-        );
+    let dayTime = "Day";
+    if (actualTime > sunrise && actualTime < sunset) {
+      dayTime = "Day";
     } else {
-        return (
-            <div>
-                <h1>Day Moment</h1>
-                <p>Loading...</p>
-            </div>
-        );
+      dayTime = "Night";
     }
-}
+
+    let body = document.querySelector("body");
+    if (dayTime === "Night") {
+      body.style.backgroundColor = "#242424";
+    } else {
+      body.style.backgroundColor = "#f3fbff";
+    }
+    } else {
+      return (
+        <Overlay />
+      );
+    }
+};
 
 export default DayMoment;
