@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Header from './components/organisms/Header/Header';
-import Card from './components/atoms/Card/Card';
 import Home from './components/pages/Home';
-import Default from './components/templates/Default';
 import Store from './components/pages/Store';
 import About from './components/pages/About';
 import Contact from './components/pages/Contact';
@@ -14,6 +12,7 @@ function App() {
   const handleButtonClick = (page) => {
     setCurrentPage(page);
   };
+
 
   return (
     <div className="App">
