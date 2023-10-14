@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const Register = ({ onButtonClick }) => {
@@ -28,7 +28,7 @@ const Register = ({ onButtonClick }) => {
 
                 <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-dark">Adresse e-mail</label>
+                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-black">Adresse e-mail</label>
                         <div className="mt-2">
                             <input
                                 id="email"
@@ -44,7 +44,7 @@ const Register = ({ onButtonClick }) => {
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium leading-6 text-dark">Mot de passe</label>
+                        <label htmlFor="password" className="block text-sm font-medium leading-6 text-black">Mot de passe</label>
                         <div className="mt-2">
                             <input
                                 id="password"
@@ -60,7 +60,7 @@ const Register = ({ onButtonClick }) => {
                     </div>
 
                     <div>
-                        <label htmlFor="passwordConfirmation" className="block text-sm font-medium leading-6 text-dark">Confirmation du mot de passe</label>
+                        <label htmlFor="passwordConfirmation" className="block text-sm font-medium leading-6 text-black">Confirmation du mot de passe</label>
                         <div className="mt-2">
                             <input
                                 id="passwordConfirmation"
@@ -80,7 +80,7 @@ const Register = ({ onButtonClick }) => {
                     </div>
                 </form>
 
-                <p className="mt-6 text-center text-sm text-dark">
+                <p className="mt-6 text-center text-sm text-black">
                     Déjà inscrit ?{' '}
                     <span className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer" onClick={() => onButtonClick("login")}>
                         Se connecter <FaArrowRight className="inline ml-1" />

@@ -1,5 +1,3 @@
-import React from "react";
-
 const About = () => {
     return (
         <div className="relative flex items-center justify-center overflow-hidden bg-gray-900 min-h-screen text-white">

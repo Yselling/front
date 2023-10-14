@@ -1,13 +1,31 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
+import { FiSun, FiMoon } from 'react-icons/fi';
 import Button from '../atoms/Button';
 
 const Header = ({ buttons, onButtonClick, isLogin }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [theme, setTheme] = useState("light");
 
     const handleMobileMenuToggle = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     };
+
+    const handleThemeToggle = () => {
+        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    };
+
+    useEffect(() => {
+        const body = document.body;
+
+        if (theme === "dark") {
+            body.style.backgroundColor = "#242424";
+            body.style.color = "white";
+        } else {
+            body.style.backgroundColor = "#f3fbff";
+            body.style.color = "black";
+        }
+    }, [theme]);
 
     return (
         <nav className="bg-gradient-to-r from-blue-500 to-indigo-400 p-3 fixed top-0 w-full z-50">
@@ -34,21 +52,39 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
                         className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
                     />
                 </div>
-                {isLogin ? (
-                    <Button
-                        buttonTitle="Profil"
-                        onClick={() => onButtonClick("profil")}
-                        className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                        icon={<FaUser />}
-                    />
-                ) : (
-                    <Button
-                        buttonTitle="Connexion"
-                        onClick={() => onButtonClick("login")}
-                        className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                        icon={<FaUser />}
-                    />
-                )}
+                <div className="flex items-center space-x-2">
+                    {isLogin ? (
+                        <>
+                            <Button
+                                buttonTitle={theme === "dark" ? "Light Mode" : "Dark Mode"}
+                                onClick={handleThemeToggle}
+                                className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white flex items-center"
+                                icon={theme === "dark" ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
+                            />
+                            <Button
+                                buttonTitle="Profil"
+                                onClick={() => onButtonClick("profil")}
+                                className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
+                                icon={<FaUser />}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Button
+                                buttonTitle=""
+                                onClick={handleThemeToggle}
+                                className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white flex items-center"
+                                icon={theme === "dark" ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
+                            />
+                            <Button
+                                buttonTitle="Connexion"
+                                onClick={() => onButtonClick("login")}
+                                className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
+                                icon={<FaUser />}
+                            />
+                        </>
+                    )}
+                </div>
             </div>
             {mobileMenuOpen && (
                 <div className="md:hidden flex flex-col items-end mt-2">

@@ -1,5 +1,3 @@
-import React from "react";
-
 const Button = ({ onClick, buttonTitle, icon, className }) => {
     return (
         <button onClick={onClick} className={`flex items-center ${className}`}>

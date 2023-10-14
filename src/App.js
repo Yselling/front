@@ -6,7 +6,6 @@ import About from './components/pages/About';
 import Contact from './components/pages/Contact';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
-import DayMoment from './components/organisms/DayMoment/DayMoment';
 import Auction from './components/pages/Auction';
 
 const pages = {
@@ -39,7 +38,6 @@ function App() {
     return (
         <div className="App">
         <Header isLogin={isLogin} buttons={buttons} onButtonClick={handleButtonClick} />
-        <DayMoment />
         <div>
             {CurrentPageComponent && <CurrentPageComponent onButtonClick={handleButtonClick} />}
         </div>
