@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { FaUser } from 'react-icons/fa';
+import { FaDoorOpen, FaUser } from 'react-icons/fa';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import Button from '../atoms/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Header = ({ buttons, onButtonClick, isLogin }) => {
+const Header = ({ buttons, onButtonClick, isLogin, setIsLogin }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem('theme') || 'light';
@@ -11,6 +13,22 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
 
     const handleMobileMenuToggle = () => {
         setMobileMenuOpen(!mobileMenuOpen);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setIsLogin(false);
+        onButtonClick('accueil');
+        new toast('Déconnexion réussie ! ✅', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
     };
 
     const handleThemeToggle = () => {
@@ -33,6 +51,18 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
 
     return (
         <nav className="bg-gradient-to-r from-blue-500 to-indigo-400 p-3 fixed top-0 w-full z-50">
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                     <Button
@@ -70,6 +100,12 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
                                 onClick={() => onButtonClick('profil')}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
                                 icon={<FaUser />}
+                            />
+                            <Button
+                                buttonTitle=""
+                                onClick={handleLogout}
+                                className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
+                                icon={<FaDoorOpen />}
                             />
                         </>
                     ) : (

@@ -44,7 +44,7 @@ function App() {
 
     return (
         <div className="App">
-            <Header isLogin={isLogin} buttons={buttons} onButtonClick={handleButtonClick} />
+            <Header isLogin={isLogin} setIsLogin={setIsLogin} buttons={buttons} onButtonClick={handleButtonClick} />
             <div>
                 {CurrentPageComponent && <CurrentPageComponent onButtonClick={handleButtonClick} />}
             </div>

@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import axios from "axios";
+import api from '../../toolkit/api.config';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = ({ onButtonClick }) => {
     const [email, setEmail] = useState('');
@@ -7,8 +11,31 @@ const Login = ({ onButtonClick }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
+
+        const data = {
+            email: email,
+            password: password,
+        };
+
+        axios(api("post", 'login', data))
+            .then((response) => {
+                const bearerToken = response.data.access_token;
+                localStorage.setItem('token', bearerToken);
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error(error);
+                new toast('Mauvais identifiants ! 🥊', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+            });
     };
 
     return (
@@ -74,6 +101,18 @@ const Login = ({ onButtonClick }) => {
                     </span>
                 </p>
             </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     );
 }
