@@ -7,6 +7,7 @@ import Contact from './components/pages/Contact';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Auction from './components/pages/Auction';
+import Profil from './components/pages/Profil';
 
 const pages = {
     accueil: Home,
@@ -16,6 +17,7 @@ const pages = {
     contact: Contact,
     login: Login,
     register: Register,
+    profil: Profil,
 };
 
 const buttons = [
