@@ -1,12 +1,17 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
+import api from '../../toolkit/api.config';
+import axios from "axios";
+import Overlay from "../atoms/Overlay.jsx";
 
 const Profile = () => {
-    const user = {
-        firstName: "Romain",
-        lastName: "Silvy-CodeWifi",
-        gender: "Xeno-lévrier de course tamere",
-        memberSince: 2020,
-    };
+    const [isMeLoaded, setIsMeLoaded] = useState(false);
+    const token = localStorage.getItem('token')
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        gender: "",
+        memberSince: "",
+    });
 
     const orders = [
         {
@@ -46,6 +51,36 @@ const Profile = () => {
         }
     ];
 
+    const getFormattedDate = (dateString) => {
+        const options = {day: '2-digit', month: '2-digit', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString('fr-FR', options);
+    };
+    
+    const get = () => {
+        axios(api("get", `me`, null, token))
+            .then((response) => {
+                setTimeout(() => {
+                    setUser({
+                        firstName: response.data.first_name,
+                        lastName: response.data.last_name,
+                        gender: response.data.gender.name,
+                        memberSince: getFormattedDate(response.data.created_at),
+                    });
+                    setIsMeLoaded(true);
+                }, 1000);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    useEffect(() => {
+        get();
+    }, []);
+
+    if (!isMeLoaded) {
+        return (<Overlay />);
+    }
     return (
         <div className="container mx-auto mt-20 px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
@@ -65,7 +100,7 @@ const Profile = () => {
                         </p>
                         <p className="text-black mb-2">
                             <i className="fas  fa-calendar mr-2 text-lg text-blueGray-400"></i>
-                            Membre depuis {user.memberSince}
+                            Membre depuis le {user.memberSince}
                         </p>
                     </div>
                 </div>

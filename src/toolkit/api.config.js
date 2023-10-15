@@ -1,8 +1,8 @@
-const api = (method, path, data = null) => {
+const api = (method, path, data = null, token = null) => {
     const config = {
         baseUrl: "http://localhost/api/",
         path: path,
-        token: null,
+        token: token,
     };
 
     let url = () => {
@@ -12,7 +12,7 @@ const api = (method, path, data = null) => {
     let headers = () => {
         return config.token
             ? {
-                    Authorization: `Bearer ${config.token}`,
+                    'Authorization': `Bearer ${config.token}`,
                     'Content-Type': 'application/json',
             }
             : {
