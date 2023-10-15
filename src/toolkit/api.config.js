@@ -1,6 +1,6 @@
-const api = (method, path) => {
+const api = (method, path, data = null) => {
     const config = {
-        baseUrl: "https://api.sunrise-sunset.org/json?",
+        baseUrl: "http://localhost/api/",
         path: path,
         token: null,
     };
@@ -12,15 +12,19 @@ const api = (method, path) => {
     let headers = () => {
         return config.token
             ? {
-                Authorization: `Bearer ${config.token}`,
+                    Authorization: `Bearer ${config.token}`,
+                    'Content-Type': 'application/json',
             }
-        : {};
+            : {
+                    'Content-Type': 'application/json',
+            };
     };
 
     return {
         method: method,
         url: url(),
         headers: headers(),
+        data: data,
     };
 };
 

@@ -1,4 +1,6 @@
 const Auction = () => {
+
+
     return (
         <div className="container mt-20 mx-auto px-4">
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl mb-4">Enchères</h1>

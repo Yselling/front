@@ -60,7 +60,7 @@ const Header = ({ buttons, onButtonClick, isLogin }) => {
                     {isLogin ? (
                         <>
                             <Button
-                                buttonTitle={theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                                buttonTitle={theme === 'dark' ? '' : ''}
                                 onClick={handleThemeToggle}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white flex items-center"
                                 icon={theme === 'dark' ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}

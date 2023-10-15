@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/organisms/Header';
 import Home from './components/pages/Home';
 import Store from './components/pages/Store';
@@ -29,6 +29,13 @@ function App() {
     const [currentPage, setCurrentPage] = useState('accueil');
     const [isLogin, setIsLogin] = useState(false);
 
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            setIsLogin(true);
+        }
+    }, []);
+
     const handleButtonClick = (page) => {
         setCurrentPage(page);
     };
@@ -37,10 +44,10 @@ function App() {
 
     return (
         <div className="App">
-        <Header isLogin={isLogin} buttons={buttons} onButtonClick={handleButtonClick} />
-        <div>
-            {CurrentPageComponent && <CurrentPageComponent onButtonClick={handleButtonClick} />}
-        </div>
+            <Header isLogin={isLogin} buttons={buttons} onButtonClick={handleButtonClick} />
+            <div>
+                {CurrentPageComponent && <CurrentPageComponent onButtonClick={handleButtonClick} />}
+            </div>
         </div>
     );
 }
