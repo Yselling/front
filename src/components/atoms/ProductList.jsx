@@ -40,12 +40,12 @@ const ProductList = ({ products }) => {
 
     return (
         <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-20">
-            <div className="mx-auto max-w-2xl lg:mx-0">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Produits</h2>
-                <p className="mt-2 text-lg leading-8">Découvrez nos produits uniques.</p>
+            <div className="mx-auto max-w-2xl lg:max-w-none">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">Produits 📪</h2>
+                <p className="text-lg leading-8 mb-8">Découvrez toutes les offres de nos marchands.</p>
+                <SearchBar onSearch={handleSearch} />
             </div>
-            <SearchBar onSearch={handleSearch} />
-            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3 sm:gap-y-20 sm:gap-x-5">
                 {loading ? (
                     skeletonCards
                 ) : (
