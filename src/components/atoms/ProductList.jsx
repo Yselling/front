@@ -1,4 +1,3 @@
-// ProductList.js
 import { useState, useEffect } from "react";
 import ProductCard from "../atoms/ProductCard";
 import SearchBar from "../atoms/SearchBar";
