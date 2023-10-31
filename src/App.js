@@ -8,6 +8,8 @@ import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Auction from './components/pages/Auction';
 import Profil from './components/pages/Profil';
+import axios from 'axios';
+import api from './toolkit/api.config';
 
 const pages = {
     accueil: Home,
@@ -30,11 +32,19 @@ const buttons = [
 function App() {
     const [currentPage, setCurrentPage] = useState('accueil');
     const [isLogin, setIsLogin] = useState(false);
+    const [cart, setCart] = useState([]);
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
             setIsLogin(true);
+            axios(api('get', 'carts/my-cart', null, storedToken))
+            .then((response) => {
+                setCart(response.data.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         }
     }, []);
 
@@ -48,7 +58,13 @@ function App() {
         <div className="App">
             <Header isLogin={isLogin} setIsLogin={setIsLogin} buttons={buttons} onButtonClick={handleButtonClick} />
             <div>
-                {CurrentPageComponent && <CurrentPageComponent onButtonClick={handleButtonClick} />}
+                {CurrentPageComponent 
+                    && 
+                <CurrentPageComponent 
+                    onButtonClick={handleButtonClick} 
+                    isLogin={isLogin} 
+                    setIsLogin={setIsLogin} 
+                />}
             </div>
         </div>
     );

@@ -2,8 +2,13 @@ import { React, useEffect, useState } from "react";
 import api from '../../toolkit/api.config';
 import axios from "axios";
 import Overlay from "../atoms/Overlay.jsx";
+import { FaDoorOpen } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import Button from "../atoms/Button";
 
-const Profile = () => {
+
+const Profile = ({ setIsLogin, onButtonClick}) => {
     const [isMeLoaded, setIsMeLoaded] = useState(false);
     const token = localStorage.getItem('token')
     const [user, setUser] = useState({
@@ -55,6 +60,22 @@ const Profile = () => {
         const options = {day: '2-digit', month: '2-digit', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('fr-FR', options);
     };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setIsLogin(false);
+        onButtonClick('accueil');
+        new toast('Déconnexion réussie ! ✅', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
+    };
     
     const get = () => {
         axios(api("get", `me`, null, token))
@@ -83,6 +104,18 @@ const Profile = () => {
     }
     return (
         <div className="container mx-auto mt-20 px-4">
+        <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+    />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
                 <div className="mb-8 sm:col-span-2 md:col-span-1 lg:col-span-1">
                     <div className="bg-white p-8 rounded-md shadow-md">
@@ -138,6 +171,9 @@ const Profile = () => {
                         <br></br>
                         <button className="bg-gray-500 text-white py-2 px-4 rounded-md mb-4 hover:bg-gray-600 focus:outline-none focus:ring focus:border-gray-300">
                             Un problème ?
+                        </button>
+                        <button className="bg-red-500 text-white py-2 px-4 rounded-md mb-4 hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300" onClick={handleLogout}>
+                            Déconnexion
                         </button>
                     </div>
                 </div>

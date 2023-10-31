@@ -5,7 +5,7 @@ import api from '../../toolkit/api.config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = ({ onButtonClick }) => {
+const Login = ({ onButtonClick, setIsLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -21,7 +21,18 @@ const Login = ({ onButtonClick }) => {
             .then((response) => {
                 const bearerToken = response.data.access_token;
                 localStorage.setItem('token', bearerToken);
-                window.location.reload();
+                setIsLogin(true);
+                onButtonClick('accueil');
+                new toast('Bienvenue ! 🚀', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
             })
             .catch((error) => {
                 console.error(error);

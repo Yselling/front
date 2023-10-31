@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { FaDoorOpen, FaUser } from 'react-icons/fa';
+import {  FaUser } from 'react-icons/fa';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import Button from '../atoms/Button';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Header = ({ buttons, onButtonClick, isLogin, setIsLogin }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,22 +14,6 @@ const Header = ({ buttons, onButtonClick, isLogin, setIsLogin }) => {
 
     const handleMobileMenuToggle = () => {
         setMobileMenuOpen(!mobileMenuOpen);
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        setIsLogin(false);
-        onButtonClick('accueil');
-        new toast('Déconnexion réussie ! ✅', {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            });
     };
 
     const handleThemeToggle = () => {
@@ -103,9 +88,9 @@ const Header = ({ buttons, onButtonClick, isLogin, setIsLogin }) => {
                             />
                             <Button
                                 buttonTitle=""
-                                onClick={handleLogout}
+                                onClick={() => onButtonClick('cart')}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                                icon={<FaDoorOpen />}
+                                icon={<FaShoppingCart />}
                             />
                         </>
                     ) : (
