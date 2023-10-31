@@ -1,10 +1,9 @@
 import ProductList from "../atoms/ProductList";
 
-const Merchant = ({products}) => {
-
+const Merchant = () => {
     return (
         <>
-            <ProductList products={products} />
+            <ProductList />
         </>
     );
 }
