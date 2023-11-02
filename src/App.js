@@ -10,6 +10,8 @@ import Auction from './components/pages/Auction';
 import Profil from './components/pages/Profil';
 import axios from 'axios';
 import api from './toolkit/api.config';
+import Cart from './components/atoms/Cart';
+import { toast } from 'react-toastify';
 
 const pages = {
     accueil: Home,
@@ -33,7 +35,10 @@ function App() {
     const [currentPage, setCurrentPage] = useState('accueil');
     const [isLogin, setIsLogin] = useState(false);
     const [cartDisplayed, setCartDisplayed] = useState(false);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState({
+        items: [],
+        total: 0,
+    });
     const cartRef = useRef(null);
 
     useEffect(() => {
@@ -51,19 +56,46 @@ function App() {
         setCartDisplayed(!cartDisplayed);
     };
 
+    const clearCart = () => {
+        axios(api('delete', 'carts/empty', null, localStorage.getItem('token')))
+            .then(() => {
+                setCart({
+                    items: [],
+                    total: 0,
+                });
+                new toast('Panier vidé 🛒', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+            })
+            .catch((error) => {
+            });
+    }
+
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
             setIsLogin(true);
             axios(api('get', 'carts/my-cart', null, storedToken))
                 .then((response) => {
-                    setCart(response.data.data);
+                    setCart(
+                        {
+                            items: response.data.cart,
+                            total: response.data.total,
+                        }
+                    )
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         }
-    }, []);
+    }, [isLogin]);
 
     const handleButtonClick = (page) => {
         setCurrentPage(page);
@@ -82,8 +114,7 @@ function App() {
                         isLogin={isLogin}
                         setIsLogin={setIsLogin}
                     />}
-                <div ref={cartRef} className="cart fixed right-0 top-0 bottom-0 w-80 z-10 bg-white shadow-lg transform translate-x-full">
-                </div>
+                <Cart cartRef={cartRef} cart={cart} setCart={setCart} clearCart={clearCart} />
             </div>
         </div>
     );

@@ -11,6 +11,7 @@ const ProductList = () => {
     const [oldProducts, setOldProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [apiPage, setApiPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState("");
     const [categories, setCategories] = useState([]);
     const [activeCategories, setActiveCategories] = useState([]);
 
@@ -29,7 +30,7 @@ const ProductList = () => {
     }, []);
 
     const fetchProducts = async (page) => {
-        axios(api("get", `products?page=${page}`))
+        axios(api("get", `products?page=${page}&search=${searchTerm}`))
         .then((response) => {
             setFilteredProducts([...filteredProducts, ...response.data.data]);
             setLoading(false);
@@ -43,15 +44,9 @@ const ProductList = () => {
         fetchProducts(apiPage);
     }, [apiPage]);
 
-    const handleSearch = (searchTerm) => {
-        if (searchTerm.length === 1) {
-            setOldProducts(filteredProducts);
-        }
-        if (searchTerm === "") {
-            setFilteredProducts(oldProducts);
-            return;
-        }
-        axios(api("get", `products?search=${searchTerm}`))
+    const handleSearch = (query) => {
+        setSearchTerm(query);
+        axios(api("get", `products?page=${apiPage}&search=${searchTerm}`))
         .then((response) => {
             setFilteredProducts(response.data.data);
         })
@@ -61,20 +56,22 @@ const ProductList = () => {
     };
 
     const handleFilter = (categoryId) => {
+        if (activeCategories.includes(categoryId)) {
+            setActiveCategories(activeCategories.filter((id) => id !== categoryId));
+        } else {
+            setActiveCategories([...activeCategories, categoryId]);
+        }
+    };
+
+    useEffect(() => {
         axios(api("get", `products?category=${activeCategories.join(",")}`))
         .then((response) => {
             setFilteredProducts(response.data.data);
-            if (activeCategories.includes(categoryId)) {
-                setActiveCategories(activeCategories.filter((id) => id !== categoryId));
-            }
-            else {
-                setActiveCategories([...activeCategories, categoryId]);
-            }
         })
         .catch((err) => {
             console.error(err);
         });
-    };
+    }, [activeCategories]);
 
     const skeletonCards = Array.from({ length: 10 }, (_, index) => (
         <div key={index} className="w-full skeleton-loader">
