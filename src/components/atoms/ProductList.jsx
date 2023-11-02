@@ -32,9 +32,7 @@ const ProductList = () => {
         axios(api("get", `products?page=${page}`))
         .then((response) => {
             setFilteredProducts([...filteredProducts, ...response.data.data]);
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
+            setLoading(false);
         })
         .catch((err) => {
             console.error(err);
@@ -97,11 +95,6 @@ const ProductList = () => {
             dataLength={filteredProducts.length}
             next={() => setApiPage(apiPage + 1)}
             hasMore={true}
-            loader={
-                <div>
-                    <h4>Loading...</h4>
-                </div>
-            }
         >
         <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-20">
             <div className="mx-auto max-w-2xl lg:max-w-none">

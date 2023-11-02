@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaShoppingCart } from 'react-icons/fa';
 
-const Header = ({ buttons, onButtonClick, isLogin, setIsLogin }) => {
+const Header = ({ buttons, onButtonClick, isLogin, manageCartDisplay }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem('theme') || 'light';
@@ -88,7 +88,7 @@ const Header = ({ buttons, onButtonClick, isLogin, setIsLogin }) => {
                             />
                             <Button
                                 buttonTitle=""
-                                onClick={() => onButtonClick('cart')}
+                                onClick={() => manageCartDisplay()}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
                                 icon={<FaShoppingCart />}
                             />

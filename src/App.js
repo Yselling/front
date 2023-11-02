@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/organisms/Header';
 import Home from './components/pages/Home';
 import Store from './components/pages/Store';
@@ -32,19 +32,36 @@ const buttons = [
 function App() {
     const [currentPage, setCurrentPage] = useState('accueil');
     const [isLogin, setIsLogin] = useState(false);
+    const [cartDisplayed, setCartDisplayed] = useState(false);
     const [cart, setCart] = useState([]);
+    const cartRef = useRef(null);
+
+    useEffect(() => {
+        if (cartRef.current && cartDisplayed) {
+            cartRef.current.style.transition = 'transform 0.4s ease-in-out';
+            cartRef.current.style.transform = 'translateX(0)';
+        }
+        if (cartRef.current && !cartDisplayed) {
+            cartRef.current.style.transition = 'transform 0.4s ease-in-out';
+            cartRef.current.style.transform = 'translateX(100%)';
+        }
+    }, [cartDisplayed]);
+
+    const manageCartDisplay = () => {
+        setCartDisplayed(!cartDisplayed);
+    };
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
             setIsLogin(true);
             axios(api('get', 'carts/my-cart', null, storedToken))
-            .then((response) => {
-                setCart(response.data.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+                .then((response) => {
+                    setCart(response.data.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
     }, []);
 
@@ -56,15 +73,17 @@ function App() {
 
     return (
         <div className="App">
-            <Header isLogin={isLogin} setIsLogin={setIsLogin} buttons={buttons} onButtonClick={handleButtonClick} />
+            <Header isLogin={isLogin} setIsLogin={setIsLogin} buttons={buttons} onButtonClick={handleButtonClick} manageCartDisplay={manageCartDisplay} />
             <div>
-                {CurrentPageComponent 
-                    && 
-                <CurrentPageComponent 
-                    onButtonClick={handleButtonClick} 
-                    isLogin={isLogin} 
-                    setIsLogin={setIsLogin} 
-                />}
+                {CurrentPageComponent
+                    &&
+                    <CurrentPageComponent
+                        onButtonClick={handleButtonClick}
+                        isLogin={isLogin}
+                        setIsLogin={setIsLogin}
+                    />}
+                <div ref={cartRef} className="cart fixed right-0 top-0 bottom-0 w-80 z-10 bg-white shadow-lg transform translate-x-full">
+                </div>
             </div>
         </div>
     );
