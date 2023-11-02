@@ -29,13 +29,11 @@ const ProductList = () => {
     }, []);
 
     const fetchProducts = async () => {
-        let data = [
-            {
-                page: apiPage,
-                search: searchTerm,
-                categories: activeCategories
-            },
-        ];
+        let data = {
+            page: apiPage,
+            search: searchTerm,
+            categories: activeCategories
+        };
         axios(api("post", "products", data))
             .then((response) => {
                 setFilteredProducts([...filteredProducts, ...response.data.data]);
@@ -51,14 +49,13 @@ const ProductList = () => {
     }, [apiPage]);
 
     const handleSearch = (query) => {
+        setApiPage(1);
         setSearchTerm(query);
-        let data = [
-            {
-                page: 1,
-                search: searchTerm,
-                categories: activeCategories
-            },
-        ];
+        let data = {
+            page: apiPage,
+            search: searchTerm,
+            categories: activeCategories
+        };
         axios(api("post", "products", data))
             .then((response) => {
                 setFilteredProducts(response.data.data);
@@ -77,13 +74,12 @@ const ProductList = () => {
     };
 
     useEffect(() => {
-        let data = [
-            {
-                page: 1,
-                search: searchTerm,
-                categories: activeCategories
-            },
-        ];
+        setApiPage(1);
+        let data = {
+            page: apiPage,
+            search: searchTerm,
+            categories: activeCategories
+        };
         axios(api("post", "products", data))
             .then((response) => {
                 console.log(response.data.data);
