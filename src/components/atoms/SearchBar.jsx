@@ -1,13 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const SearchBar = ({ onSearch }) => {
     const [searchTerm, setSearchTerm] = useState("");
 
-    const handleInputChange = (e) => {
-        const term = e.target.value;
-        setSearchTerm(term);
-        onSearch(term);
-        console.log(term);
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+        onSearch(e.target.value);
     };
 
     return (
@@ -16,8 +14,8 @@ const SearchBar = ({ onSearch }) => {
                 type="text"
                 placeholder="Rechercher..."
                 value={searchTerm}
-                onChange={handleInputChange}
-                className="py-2 px-4 border text-black border-gray-300 rounded-md focus:outline-none focus:border-indigo-600 w-48 sm:w-64 md:w-96" // Vous pouvez ajuster les classes ici
+                onChange={handleSearchChange}
+                className="py-2 px-4 border text-black border-gray-300 rounded-md focus:outline-none focus:border-indigo-600 w-48 sm:w-64 md:w-96"
             />
         </div>
     );
