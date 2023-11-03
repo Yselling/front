@@ -140,6 +140,10 @@ const Profile = ({ setIsLogin, onButtonClick }) => {
                             <p className="text-xs md:text-sm lg:text-base font-normal text-gray-600">Role</p>
                         </div>
                     </div>
+                    <div className="mt-6 flex flex-col items-center">
+                        <button className="bg-indigo-700 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300 focus:outline-none focus:ring focus:border-indigo-300">Modifier le profil</button>
+                        <button className="mt-2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-400 transition duration-300 focus:outline-none focus:ring focus:border-red-300">Déconnexion</button>
+                    </div>
                 </div>
             </div>
             <div className="flex flex-col justify-start items-start bg-white rounded-lg p-6 md:p-8 xl:p-10 w-full md:max-w-2xl mx-auto">
