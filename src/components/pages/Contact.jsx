@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import axios from "axios";
+import { toast } from "react-toastify";
+import api from "../../toolkit/api.config";
 
 const Contact = ({ onButtonClick }) => {
     const [email, setEmail] = useState('');
@@ -7,8 +10,38 @@ const Contact = ({ onButtonClick }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Email:', email);
-        console.log('Message:', message);
+        let data = {
+            email: email,
+            message: message
+        };
+        axios(api("post", 'contact', data))
+        .then(() => {
+            new toast('Votre message a bien été envoyé 💙', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            setEmail('');
+            setMessage('');
+        })
+        .catch((error) => {
+            new toast(error.response.data.message[0] + ' 😥', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            console.log(error);
+        });
     };
 
     return (
