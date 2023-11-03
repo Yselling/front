@@ -22,13 +22,19 @@ const Header = ({ buttons, onButtonClick, isLogin, manageCartDisplay }) => {
 
     useEffect(() => {
         const body = document.body;
+        const cart = document.querySelector('.cart');
         body.style.transition = 'background-color 1s ease';
+        cart.style.transition = 'background-color 1s ease';
         if (theme === 'dark') {
             body.style.backgroundColor = '#242424';
             body.style.color = 'white';
+            cart.style.backgroundColor = '#242424';
+            cart.style.color = 'white';
         } else {
             body.style.backgroundColor = '#f3fbff';
             body.style.color = 'black';
+            cart.style.backgroundColor = '#f3fbff';
+            cart.style.color = 'black';
         }
 
         localStorage.setItem('theme', theme);
