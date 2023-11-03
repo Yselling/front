@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import Button from "../atoms/Button";
 
 
-const Profile = ({ setIsLogin, onButtonClick}) => {
+const Profile = ({ setIsLogin, onButtonClick }) => {
     const [isMeLoaded, setIsMeLoaded] = useState(false);
     const token = localStorage.getItem('token')
     const [user, setUser] = useState({
@@ -16,6 +16,8 @@ const Profile = ({ setIsLogin, onButtonClick}) => {
         lastName: "",
         gender: "",
         memberSince: "",
+        cartCount: 0,
+        role: "Client",
     });
 
     const orders = [
@@ -57,7 +59,7 @@ const Profile = ({ setIsLogin, onButtonClick}) => {
     ];
 
     const getFormattedDate = (dateString) => {
-        const options = {day: '2-digit', month: '2-digit', year: 'numeric' };
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('fr-FR', options);
     };
 
@@ -74,9 +76,9 @@ const Profile = ({ setIsLogin, onButtonClick}) => {
             draggable: true,
             progress: undefined,
             theme: "dark",
-            });
+        });
     };
-    
+
     const get = () => {
         axios(api("get", `me`, null, token))
             .then((response) => {
@@ -86,6 +88,8 @@ const Profile = ({ setIsLogin, onButtonClick}) => {
                         lastName: response.data.last_name,
                         gender: response.data.gender.name,
                         memberSince: getFormattedDate(response.data.created_at),
+                        cartCount: response.data.cart.length,
+                        role: response.data.role.name === "admin" ? "Admin" : "Client",
                     });
                     setIsMeLoaded(true);
                 }, 1000);
@@ -103,80 +107,60 @@ const Profile = ({ setIsLogin, onButtonClick}) => {
         return (<Overlay />);
     }
     return (
-        <div className="container mx-auto mt-20 px-4">
-        <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-    />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
-                <div className="mb-8 sm:col-span-2 md:col-span-1 lg:col-span-1">
-                    <div className="bg-white p-8 rounded-md shadow-md">
-                        <img
-                            src="https://cdn.discordapp.com/attachments/799680588474482761/1163091757454610453/tanguy1.png?ex=653e509c&is=652bdb9c&hm=a5b745d717e208760789d6dde0aadcdbc0e4dfb0fc53a8b23b7208754303f10a&"
-                            alt="Profil"
-                            className="w-full h-64 object-cover rounded-md mb-4"
-                        />
-                        <h1 className="text-2xl text-black font-bold mb-4">
+        <div className="container mx-auto mt-20 px-4 flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-12">
+            <div className="flex flex-col justify-center items-center w-full md:w-1/3">
+                <div className="relative flex flex-col items-center rounded-[20px] w-full mx-auto p-4 bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:!shadow-none">
+                    <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover">
+                        <img src='https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/banner.ef572d78f29b0fee0a09.png' className="absolute flex h-32 w-full justify-center rounded-xl bg-cover" alt="" />
+                        <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
+                            <img className="h-full w-full rounded-full" src='https://cdn.discordapp.com/attachments/799680588474482761/1163091757454610453/tanguy1.png?ex=653e509c&is=652bdb9c&hm=a5b745d717e208760789d6dde0aadcdbc0e4dfb0fc53a8b23b7208754303f10a&' alt="" />
+                        </div>
+                    </div>
+                    <div className="mt-16 flex flex-col items-center">
+                        <h4 className="text-base md:text-lg lg:text-xl font-bold text-black">
                             {user.firstName} {user.lastName}
-                        </h1>
-                        <p className="text-gray-600 mb-2">
-                            <i className="fas fa-venus-mars mr-2 text-lg text-blueGray-400"></i>
-                            Genre : {user.gender}
-                        </p>
-                        <p className="text-black mb-2">
-                            <i className="fas  fa-calendar mr-2 text-lg text-blueGray-400"></i>
-                            Membre depuis le {user.memberSince}
-                        </p>
+                        </h4>
+                        <p className="text-xs md:text-sm lg:text-base font-normal text-gray-600">{user.gender}</p>
+                    </div>
+                    <div className="mt-6 mb-3 flex gap-4 md:gap-6 lg:gap-8">
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-sm md:text-base lg:text-lg font-bold text-navy-700 text-black">{user.memberSince}</p>
+                            <p className="text-xs md:text-sm lg:text-base font-normal text-gray-600">Membre depuis</p>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-sm md:text-base lg:text-lg font-bold text-navy-700 text-black">
+                                {user.cartCount}
+                            </p>
+                            <p className="text-xs md:text-sm lg:text-base font-normal text-gray-600">Articles</p>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-sm md:text-base lg:text-lg font-bold text-navy-700 text-black">
+                                {user.role}
+                            </p>
+                            <p className="text-xs md:text-sm lg:text-base font-normal text-gray-600">Role</p>
+                        </div>
                     </div>
                 </div>
-
-                <div className="mb-8">
-                    <div className="bg-white p-8 rounded-md shadow-md">
-                        <h2 className="text-2xl text-black font-bold mb-4">Vos Commandes</h2>
-                        {orders.map((order) => (
-                            <div key={order.id} className="mb-4">
-                                <p className="text-gray-600 mb-2">
-                                    <span className="font-semibold text-black">Commande #{order.id}</span> - {order.date}
-                                </p>
-                                <ul>
-                                    {order.products.map((product) => (
-                                        <li key={product.id} className=" text-black">
-                                            {product.name} - ${product.price}
-                                        </li>
-                                    ))}
-                                </ul>
+            </div>
+            <div className="flex flex-col justify-start items-start bg-white rounded-lg p-6 md:p-8 xl:p-10 w-full md:max-w-2xl mx-auto">
+                {orders.map((order) => (
+                    <div key={order.id} className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
+                        <div className="flex justify-between items-start w-full flex-col md:flex-row space-y-4 md:space-y-0">
+                            <div className="w-full flex flex-col justify-start items-start space-y-8">
+                                <h3 className="text-xl xl:text-2xl font-semibold leading-6 text-gray-800">Commande #{order.id}</h3>
+                                <div className="flex justify-start items-start flex-col space-y-2">
+                                    <p className="text-sm dark:text-gray-600 leading-none text-gray-800"><span className="dark:text-gray-600">Date: </span> {order.date}</p>
+                                    <p className="text-sm dark:text-gray-600 leading-none text-gray-800"><span className="dark:text-gray-600">Produits: </span> {order.products.map((product) => product.name).join(', ')}</p>
+                                </div>
                             </div>
-                        ))}
+                            <div className="flex justify-between space-x-8 items-start w-full">
+                                <div className="flex flex-col items-end">
+                                    <p className="text-base dark:text-gray-600 xl:text-lg leading-6">{order.products.map((product) => product.price).reduce((a, b) => a + b, 0)}€</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div className="mb-8">
-                    <div className="bg-white p-8 rounded-md shadow-md">
-                        <h2 className="text-2xl font-bold text-black mb-4">Actions</h2>
-                        <button className="bg-blue-500 text-white py-2 px-4 rounded-md mb-4 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
-                            Mettre à jour le profil
-                        </button>
-                        <br></br>
-                        <button className="bg-blue-500 text-white py-2 px-4 rounded-md mb-4 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
-                            Changer le mot de passe
-                        </button>
-                        <br></br>
-                        <button className="bg-gray-500 text-white py-2 px-4 rounded-md mb-4 hover:bg-gray-600 focus:outline-none focus:ring focus:border-gray-300">
-                            Un problème ?
-                        </button>
-                        <button className="bg-red-500 text-white py-2 px-4 rounded-md mb-4 hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300" onClick={handleLogout}>
-                            Déconnexion
-                        </button>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );

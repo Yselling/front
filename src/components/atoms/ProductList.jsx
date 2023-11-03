@@ -82,7 +82,6 @@ const ProductList = () => {
         };
         axios(api("post", "products", data))
             .then((response) => {
-                console.log(response.data.data);
                 setFilteredProducts(response.data.data);
             })
             .catch((err) => {
