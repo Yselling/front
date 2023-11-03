@@ -78,6 +78,36 @@ function App() {
             });
     }
 
+    const handleAddToCart = (id) => {
+        console.log(id);
+        let data = {
+            amount: 1,
+            product_id: id,
+        };
+        axios(api('post', 'carts/add-product', data, localStorage.getItem('token')))
+            .then((response) => {
+                setCart(
+                    {
+                        items: response.data.cart,
+                        total: response.data.total,
+                    }
+                )
+                new toast('Produit ajouté au panier 🛒', {
+                    position: "bottom-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
@@ -113,6 +143,7 @@ function App() {
                         onButtonClick={handleButtonClick}
                         isLogin={isLogin}
                         setIsLogin={setIsLogin}
+                        handleAddToCart={handleAddToCart}
                     />}
                 <Cart cartRef={cartRef} cart={cart} setCart={setCart} clearCart={clearCart} />
             </div>

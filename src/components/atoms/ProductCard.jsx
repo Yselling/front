@@ -1,8 +1,4 @@
-const ProductCard = ({ product }) => {
-
-    const HandleAddToCart = () => {
-        // setCart([...cart, product]);
-    };
+const ProductCard = ({ product, handleAddToCart }) => {
 
     return (
         <div className="bg-white rounded-md shadow-lg overflow-hidden">
@@ -27,14 +23,9 @@ const ProductCard = ({ product }) => {
                 </div>
                 <div className="relative mt-8 flex items-center gap-x-4">
                     <div className="text-sm leading-6">
-                        <p className="font-semibold text-gray-900">
-                            <a href="#">
-                                <span className="absolute inset-0"></span>
-                                {/* <button onClick={HandleAddToCart} className="text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md shadow">
-                                Ajouter au panier 🥏
-                                </button> */}
-                            </a>
-                        </p>
+                        <button onClick={() => handleAddToCart(product.id)} className="text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md shadow">
+                            Ajouter au panier 🥏
+                        </button>
                     </div>
                 </div>
             </div>
