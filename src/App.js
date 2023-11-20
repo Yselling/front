@@ -15,27 +15,13 @@ import { toast } from 'react-toastify';
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
-const pages = {
-    accueil: Home,
-    store: Store,
-    auctions: Auction,
-    about: About,
-    contact: Contact,
-    login: Login,
-    register: Register,
-    profil: Profil,
-};
-
 const buttons = [
     { title: 'Boutique', link: 'store' },
-    // { title: 'Enchères', link: 'auctions' },
     { title: 'Contact', link: 'contact' },
     { title: 'A propos', link: 'about' },
 ];
 
 function App() {
-    const [currentPage, setCurrentPage] = useState('accueil');
-    const [isLogin, setIsLogin] = useState(false);
     const [cartDisplayed, setCartDisplayed] = useState(false);
     const [cart, setCart] = useState({
         items: [],
@@ -77,11 +63,11 @@ function App() {
                 });
             })
             .catch((error) => {
+                console.error(error);
             });
     }
 
     const handleAddToCart = (id) => {
-        console.log(id);
         let data = {
             amount: 1,
             product_id: id,
@@ -127,13 +113,7 @@ function App() {
                     console.error(error);
                 });
         }
-    }, [isLogin]);
-
-    const handleButtonClick = (page) => {
-        setCurrentPage(page);
-    };
-
-    const CurrentPageComponent = pages[currentPage];
+    }, []);
 
     return (
         <div className="App">

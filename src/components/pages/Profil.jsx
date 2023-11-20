@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 
 
-const Profile = ({ setIsLogin, onButtonClick }) => {
+const Profile = () => {
     const [isMeLoaded, setIsMeLoaded] = useState(false);
     const token = localStorage.getItem('token')
     const [user, setUser] = useState({
@@ -63,7 +63,7 @@ const Profile = ({ setIsLogin, onButtonClick }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        onButtonClick('accueil');
+        window.location.href = '/';
         new toast('Déconnexion réussie ! ✅', {
             position: "bottom-right",
             autoClose: 5000,
