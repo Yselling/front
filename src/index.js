@@ -7,12 +7,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "./components/pages/Error";
 import Contact from "./components/pages/Contact";
 import Store from "./components/pages/Store";
-import Auction from "./components/pages/Auction";
 import About from "./components/pages/About";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import Profile from "./components/pages/Profil";
 import Home from "./components/pages/Home";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
@@ -28,10 +29,6 @@ const router = createBrowserRouter([
         path: "/store",
         element: <Store />,
       },
-      // {
-      //   path: "/auctions",
-      //   element: <Auction />,
-      // },
       {
         path: "/about",
         element: <About />,
@@ -58,7 +55,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 

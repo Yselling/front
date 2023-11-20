@@ -66,13 +66,13 @@ const Profile = () => {
         window.location.href = '/';
         new toast('Déconnexion réussie ! ✅', {
             position: "bottom-right",
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "dark",
+            theme: localStorage.getItem('theme') === 'dark' ? 'dark' : 'light',
         });
     };
 

@@ -2,58 +2,22 @@ import React from 'react';
 import axios from 'axios';
 import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa';
 import api from '../../toolkit/api.config';
+import { useDispatch } from 'react-redux'
+import { addOne, removeOne, removeProduct } from '../../redux/cartSlice'
 
-const CartItem = ({ item, setCart }) => {
+const CartItem = ({ item }) => {
+    const dispatch = useDispatch();
 
     const handleAddItem = (item) => {
-        let data = {
-            product_id: item.id,
-            amount: 1
-        }
-        axios(api('post', `carts/add-product`, data, localStorage.getItem('token')))
-            .then((response) => {
-                setCart({
-                    items: response.data.cart,
-                    total: response.data.total,
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        dispatch(addOne(item.id));
     };
 
     const handleRemoveItem = (item) => {
-        let data = {
-            product_id: item.id,
-            amount: 1
-        }
-        axios(api('post', `carts/remove-product`, data, localStorage.getItem('token')))
-            .then((response) => {
-                setCart({
-                    items: response.data.cart,
-                    total: response.data.total,
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        dispatch(removeProduct(item.id));
     }
 
     const handleDecreaseItem = (item) => {
-        let data = {
-            product_id: item.id,
-            amount: 1
-        }
-        axios(api('post', `carts/decrement-product`, data, localStorage.getItem('token')))
-            .then((response) => {
-                setCart({
-                    items: response.data.cart,
-                    total: response.data.total,
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        dispatch(removeOne(item.id));
     }
 
     return (
