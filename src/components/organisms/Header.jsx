@@ -4,9 +4,9 @@ import { FiSun, FiMoon } from 'react-icons/fi';
 import Button from '../atoms/Button';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaShoppingCart } from 'react-icons/fa';
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Header = ({ buttons, onButtonClick, isLogin, manageCartDisplay }) => {
+const Header = ({ buttons, isLogin, manageCartDisplay }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem('theme') || 'light';
