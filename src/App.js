@@ -1,13 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/organisms/Header';
-import Home from './components/pages/Home';
-import Store from './components/pages/Store';
-import About from './components/pages/About';
-import Contact from './components/pages/Contact';
-import Login from './components/pages/Login';
-import Register from './components/pages/Register';
-import Auction from './components/pages/Auction';
-import Profil from './components/pages/Profil';
 import axios from 'axios';
 import api from './toolkit/api.config';
 import Cart from './components/atoms/Cart';
@@ -22,6 +14,7 @@ const buttons = [
 ];
 
 function App() {
+    const [isLogin, setIsLogin] = useState(false);
     const [cartDisplayed, setCartDisplayed] = useState(false);
     const [cart, setCart] = useState({
         items: [],
@@ -129,7 +122,7 @@ function App() {
                 pauseOnHover
                 theme="dark"
             />
-            <Header isLogin={isLogin} setIsLogin={setIsLogin} buttons={buttons} onButtonClick={handleButtonClick} manageCartDisplay={manageCartDisplay} />
+            <Header isLogin={isLogin} buttons={buttons} manageCartDisplay={manageCartDisplay} />
             <div>
                 <Outlet />
                 <Cart cartRef={cartRef} cart={cart} setCart={setCart} clearCart={clearCart} />
