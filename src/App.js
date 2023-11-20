@@ -13,6 +13,7 @@ import api from './toolkit/api.config';
 import Cart from './components/atoms/Cart';
 import { toast } from 'react-toastify';
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 
 const pages = {
     accueil: Home,
@@ -27,9 +28,9 @@ const pages = {
 
 const buttons = [
     { title: 'Boutique', link: 'store' },
-    { title: 'Enchères', link: 'auctions' },
-    { title: 'A propos', link: 'about' },
+    // { title: 'Enchères', link: 'auctions' },
     { title: 'Contact', link: 'contact' },
+    { title: 'A propos', link: 'about' },
 ];
 
 function App() {
@@ -136,6 +137,18 @@ function App() {
 
     return (
         <div className="App">
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
             <Header isLogin={isLogin} setIsLogin={setIsLogin} buttons={buttons} onButtonClick={handleButtonClick} manageCartDisplay={manageCartDisplay} />
             <div>
                 <Outlet />
