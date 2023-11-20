@@ -3,6 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 import api from "../../toolkit/api.config";
+import { Link } from "react-router-dom";
 
 const Contact = ({ onButtonClick }) => {
     const [email, setEmail] = useState('');
@@ -97,13 +98,11 @@ const Contact = ({ onButtonClick }) => {
                         </div>
                     </form>
                     <p className="mt-6 text-sm text-black">
-                        Retour à{' '}
-                        <span
-                            className="font-semibold text-indigo-600 hover:text-indigo-500 cursor-pointer"
-                            onClick={() => onButtonClick("accueil")}
-                        >
+                        Retour à
+                        {/* <a href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
                             l'accueil <FaArrowRight className="inline ml-1" />
-                        </span>
+                        </a> */}
+                        <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500"> l'accueil<FaArrowRight className="inline ml-1" /></Link>
                     </p>
                 </div>
             </div>
