@@ -48,7 +48,7 @@ const Contact = ({ onButtonClick }) => {
         <div className="flex flex-col md:flex-row items-center justify-center min-h-screen">
             <div className="md:w-2/3 overflow-hidden pr-8">
                 <img
-                    src="https://images.unsplash.com/uploads/1413222992504f1b734a6/1928e537?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80"
+                    src="/img/contact.png"
                     alt=""
                     className="w-full h-full object-cover mt-4 mb-4 ml-4 md:mt-0 md:mb-0 md:ml-0"
                     style={{ clipPath: "polygon(20% 0%, 0% 20%, 9% 39%, 2% 80%, 20% 100%, 38% 90%, 78% 96%, 100% 80%, 94% 32%, 100% 20%, 80% 0%, 37% 6%)" }}

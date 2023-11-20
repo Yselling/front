@@ -2,7 +2,7 @@ const About = () => {
     return (
         <div className="relative flex items-center justify-center overflow-hidden bg-gray-900 min-h-screen text-white">
             <img
-                src="https://images.unsplash.com/photo-1623232876312-e44b73035045?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80"
+                src="/img/about.png"
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover object-right md:object-center opacity-10"
             />
