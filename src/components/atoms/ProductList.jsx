@@ -5,6 +5,7 @@ import api from "../../toolkit/api.config";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "../atoms/SearchBar";
+import { Link } from "react-router-dom";
 
 const ProductList = ({ handleAddToCart }) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -118,10 +119,11 @@ const ProductList = ({ handleAddToCart }) => {
                 <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3 sm:gap-y-20 sm:gap-x-5">
                     {filteredProducts.map((product, index) => (
                         <div key={index} className="w-full">
-                            <ProductCard product={product} handleAddToCart={handleAddToCart} />
+                            <Link to={`/product/${product.id}`}>
+                                <ProductCard product={product} handleAddToCart={handleAddToCart} />
+                            </Link>
                         </div>
-                    ))
-                    }
+                    ))}
                 </div>
             </div>
         </InfiniteScroll>

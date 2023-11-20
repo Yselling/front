@@ -88,6 +88,16 @@ export const removeProduct = createAsyncThunk('cart/removeProduct', async (paylo
         };
         const response = await axios(api('post', 'carts/remove-product', data, localStorage.getItem('token')));
         dispatch(setCart(response.data));
+        new toast('Produit retiré du panier 🗑️', {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: localStorage.getItem('theme') === 'dark' ? 'dark' : 'light',
+        });
         return response.data;
     } catch (error) {
         console.error(error);
@@ -103,6 +113,31 @@ export const clearCart = createAsyncThunk('cart/clearCart', async (payload, { di
             total: 0,
         }))
         new toast('Votre panier est maintenant vide 🛒', {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: localStorage.getItem('theme') === 'dark' ? 'dark' : 'light',
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+});
+
+export const addProduct = createAsyncThunk('cart/addProduct', async (payload, { dispatch }) => {
+    try {
+        let data = {
+            product_id: payload.id,
+            amount: payload.amount
+        };
+        const response = await axios(api('post', 'carts/add-product', data, localStorage.getItem('token')));
+        dispatch(setCart(response.data));
+        new toast('Produit ajouté au panier ⚡', {
             position: "bottom-right",
             autoClose: 1000,
             hideProgressBar: false,

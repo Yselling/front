@@ -14,6 +14,7 @@ import Profile from "./components/pages/Profil";
 import Home from "./components/pages/Home";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import Product from "./components/pages/Product";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/store",
         element: <Store />,
+      },
+      {
+        path: "/product/:id",
+        element: <Product />,
       },
       {
         path: "/about",

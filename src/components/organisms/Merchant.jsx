@@ -1,9 +1,9 @@
 import ProductList from "../atoms/ProductList";
 
-const Merchant = ({handleAddToCart}) => {
+const Merchant = () => {
     return (
         <>
-            <ProductList handleAddToCart={handleAddToCart} />
+            <ProductList />
         </>
     );
 }
