@@ -12,6 +12,7 @@ import axios from 'axios';
 import api from './toolkit/api.config';
 import Cart from './components/atoms/Cart';
 import { toast } from 'react-toastify';
+import { Outlet } from "react-router-dom";
 
 const pages = {
     accueil: Home,
@@ -72,7 +73,7 @@ function App() {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    });
+                });
             })
             .catch((error) => {
             });
@@ -101,7 +102,7 @@ function App() {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    });
+                });
             })
             .catch((error) => {
                 console.error(error);
@@ -137,14 +138,7 @@ function App() {
         <div className="App">
             <Header isLogin={isLogin} setIsLogin={setIsLogin} buttons={buttons} onButtonClick={handleButtonClick} manageCartDisplay={manageCartDisplay} />
             <div>
-                {CurrentPageComponent
-                    &&
-                    <CurrentPageComponent
-                        onButtonClick={handleButtonClick}
-                        isLogin={isLogin}
-                        setIsLogin={setIsLogin}
-                        handleAddToCart={handleAddToCart}
-                    />}
+                <Outlet />
                 <Cart cartRef={cartRef} cart={cart} setCart={setCart} clearCart={clearCart} />
             </div>
         </div>
