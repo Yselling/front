@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import {  FaUser } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import Button from '../atoms/Button';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaShoppingCart } from 'react-icons/fa';
+import { Outlet, Link } from "react-router-dom";
 
 const Header = ({ buttons, onButtonClick, isLogin, manageCartDisplay }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -42,93 +42,75 @@ const Header = ({ buttons, onButtonClick, isLogin, manageCartDisplay }) => {
 
     return (
         <nav className="bg-gradient-to-r from-blue-500 to-indigo-400 p-3 fixed top-0 w-full z-50">
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center space-x-4">
-                    <Button
-                        buttonTitle="Yselling⚡"
-                        onClick={() => onButtonClick('accueil')}
-                        className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                    />
+                    <Link to="/" className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white">
+                        Yselling⚡
+                    </Link>
                     {buttons.map((element, index) => (
-                        <Button
+                        <Link
                             key={index}
-                            buttonTitle={element.title}
-                            onClick={() => onButtonClick(element.link)}
+                            to={element.link}
                             className="hidden md:inline-block text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                        />
+                        >
+                            {element.title}
+                        </Link>
                     ))}
                 </div>
                 <div className="md:hidden">
-                    <Button
-                        buttonTitle="☰"
+                    <button
                         onClick={handleMobileMenuToggle}
                         className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                    />
+                    >
+                        ☰
+                    </button>
                 </div>
                 <div className="flex items-center space-x-2">
+                    <button
+                        onClick={handleThemeToggle}
+                        className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white flex items-center"
+                    >
+                        {theme === 'dark' ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
+                    </button>
                     {isLogin ? (
                         <>
-                            <Button
-                                buttonTitle={theme === 'dark' ? '' : ''}
-                                onClick={handleThemeToggle}
-                                className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white flex items-center"
-                                icon={theme === 'dark' ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
-                            />
-                            <Button
-                                buttonTitle="Profil"
-                                onClick={() => onButtonClick('profil')}
+                            <Link
+                                to="/profile"
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                                icon={<FaUser />}
-                            />
-                            <Button
-                                buttonTitle=""
+                            >
+                                Profil
+                            </Link>
+                            <button
                                 onClick={() => manageCartDisplay()}
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                                icon={<FaShoppingCart />}
-                            />
+                            >
+                                <FaShoppingCart />
+                            </button>
                         </>
                     ) : (
                         <>
-                            <Button
-                                buttonTitle=""
-                                onClick={handleThemeToggle}
-                                className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white flex items-center"
-                                icon={theme === 'dark' ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
-                            />
-                            <Button
-                                buttonTitle="Connexion"
-                                onClick={() => onButtonClick('login')}
+                            <Link
+                                to="/login"
                                 className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white"
-                                icon={<FaUser />}
-                            />
+                            >
+                                Connexion
+                            </Link>
                         </>
                     )}
                 </div>
+
             </div>
             {mobileMenuOpen && (
                 <div className="md:hidden flex flex-col items-end mt-2">
                     {buttons.map((element, index) => (
-                        <Button
+                        <Link
                             key={index}
-                            buttonTitle={element.title}
-                            onClick={() => {
-                                onButtonClick(element.link);
-                                setMobileMenuOpen(false);
-                            }}
+                            to={element.link}
+                            onClick={() => setMobileMenuOpen(false)}
                             className="text-white font-bold hover:text-white transition duration-300 px-3 py-1 rounded-md border border-transparent hover:border-white mb-2"
-                        />
+                        >
+                            {element.title}
+                        </Link>
                     ))}
                 </div>
             )}
