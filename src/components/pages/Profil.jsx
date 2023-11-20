@@ -138,7 +138,7 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className="mt-6 flex flex-col items-center">
-                        <button className="bg-indigo-700 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300 focus:outline-none focus:ring focus:border-indigo-300">Modifier le profil</button>
+                        {/* <button className="bg-indigo-700 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300 focus:outline-none focus:ring focus:border-indigo-300">Modifier le profil</button> */}
                         <button
                             className="mt-2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-400 transition duration-300 focus:outline-none focus:ring focus:border-red-300"
                             onClick={handleLogout}
