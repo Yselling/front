@@ -60,7 +60,7 @@ const Contact = ({ onButtonClick }) => {
                     <h2 className="text-3xl font-bold mb-4 text-indigo-600">Nous Contacter ✏️</h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Adresse e-mail</label>
+                            <label htmlFor="email" className="block text-sm font-medium text-black">Adresse e-mail</label>
                             <input
                                 id="email"
                                 name="email"
@@ -69,12 +69,12 @@ const Contact = ({ onButtonClick }) => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full py-2 px-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-600"
+                                className="w-full py-2 px-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-600 text-black"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+                            <label htmlFor="message" className="block text-sm font-medium text-black">Message</label>
                             <textarea
                                 id="message"
                                 name="message"
@@ -82,7 +82,7 @@ const Contact = ({ onButtonClick }) => {
                                 onChange={(e) => setMessage(e.target.value)}
                                 required
                                 rows="4"
-                                className="w-full py-2 px-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-600"
+                                className="w-full py-2 px-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-600 text-black"
                                 style={{ resize: "none" }}
                             ></textarea>
                         </div>
@@ -96,7 +96,7 @@ const Contact = ({ onButtonClick }) => {
                             </button>
                         </div>
                     </form>
-                    <p className="mt-6 text-sm text-gray-700">
+                    <p className="mt-6 text-sm text-black">
                         Retour à{' '}
                         <span
                             className="font-semibold text-indigo-600 hover:text-indigo-500 cursor-pointer"
