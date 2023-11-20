@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaUser } from 'react-icons/fa';
 import { FiSun, FiMoon } from 'react-icons/fi';
-import Button from '../atoms/Button';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Link } from "react-router-dom";

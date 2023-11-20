@@ -36,7 +36,6 @@ const Cart = ({ cartRef }) => {
                 <button className="cart-button text-white bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-md shadow">Valider</button>
             </div>
         </div>
-
     );
 }
 

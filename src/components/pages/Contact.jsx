@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import api from "../../toolkit/api.config";
 import { Link } from "react-router-dom";
 
-const Contact = ({ onButtonClick }) => {
+const Contact = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
 

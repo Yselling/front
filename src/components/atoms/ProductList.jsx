@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 const ProductList = ({ handleAddToCart }) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [apiPage, setApiPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [categories, setCategories] = useState([]);
@@ -38,7 +37,6 @@ const ProductList = ({ handleAddToCart }) => {
         axios(api("post", "products", data))
             .then((response) => {
                 setFilteredProducts([...filteredProducts, ...response.data.data]);
-                setLoading(false);
             })
             .catch((err) => {
                 console.error(err);

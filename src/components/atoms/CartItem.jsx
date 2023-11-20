@@ -1,7 +1,5 @@
 import React from 'react';
-import axios from 'axios';
 import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa';
-import api from '../../toolkit/api.config';
 import { useDispatch } from 'react-redux'
 import { addOne, removeOne, removeProduct } from '../../redux/cartSlice'
 
