@@ -2,10 +2,8 @@ import { React, useEffect, useState } from "react";
 import api from '../../toolkit/api.config';
 import axios from "axios";
 import Overlay from "../atoms/Overlay.jsx";
-import { FaDoorOpen } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
-import Button from "../atoms/Button";
+import { Link } from "react-router-dom";
 
 
 const Profile = ({ setIsLogin, onButtonClick }) => {
@@ -65,7 +63,6 @@ const Profile = ({ setIsLogin, onButtonClick }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        setIsLogin(false);
         onButtonClick('accueil');
         new toast('Déconnexion réussie ! ✅', {
             position: "bottom-right",
@@ -142,7 +139,14 @@ const Profile = ({ setIsLogin, onButtonClick }) => {
                     </div>
                     <div className="mt-6 flex flex-col items-center">
                         <button className="bg-indigo-700 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300 focus:outline-none focus:ring focus:border-indigo-300">Modifier le profil</button>
-                        <button className="mt-2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-400 transition duration-300 focus:outline-none focus:ring focus:border-red-300">Déconnexion</button>
+                        <button
+                            className="mt-2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-400 transition duration-300 focus:outline-none focus:ring focus:border-red-300"
+                            onClick={handleLogout}
+                        >
+                            <Link to="/" className="text-white">
+                                Déconnexion
+                            </Link>
+                        </button>
                     </div>
                 </div>
             </div>

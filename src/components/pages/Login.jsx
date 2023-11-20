@@ -4,8 +4,9 @@ import axios from "axios";
 import api from '../../toolkit/api.config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom";
 
-const Login = ({ onButtonClick, setIsLogin }) => {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -21,8 +22,7 @@ const Login = ({ onButtonClick, setIsLogin }) => {
             .then((response) => {
                 const bearerToken = response.data.access_token;
                 localStorage.setItem('token', bearerToken);
-                setIsLogin(true);
-                onButtonClick('accueil');
+                window.location.href = '/';
                 new toast('Bienvenue ! 🚀', {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -32,7 +32,7 @@ const Login = ({ onButtonClick, setIsLogin }) => {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    });
+                });
             })
             .catch((error) => {
                 console.error(error);
@@ -45,14 +45,14 @@ const Login = ({ onButtonClick, setIsLogin }) => {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    });
+                });
             });
     };
 
     return (
         <div className="relative flex items-center justify-center overflow-hidden bg-gray-900 min-h-screen">
             <img
-                src="https://images.unsplash.com/photo-1501523460185-2aa5d2a0f981?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2131&q=80"
+                src="/img/login.png"
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover object-right md:object-center opacity-20"
             />
@@ -107,9 +107,9 @@ const Login = ({ onButtonClick, setIsLogin }) => {
 
                 <p className="mt-6 text-center text-sm text-black">
                     Pas encore inscrit ?{' '}
-                    <span className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer" onClick={() => onButtonClick("register")}>
+                    <Link to="/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
                         Je crée mon compte <FaArrowRight className="inline ml-1" />
-                    </span>
+                    </Link>
                 </p>
             </div>
             <ToastContainer

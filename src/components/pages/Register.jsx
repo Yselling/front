@@ -3,8 +3,9 @@ import { FaArrowRight } from "react-icons/fa";
 import api from '../../toolkit/api.config';
 import axios from "axios";
 import Select from '../atoms/Select';
+import { Link } from "react-router-dom";
 
-const Register = ({ onButtonClick }) => {
+const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -41,21 +42,21 @@ const Register = ({ onButtonClick }) => {
         };
 
         axios(api("post", 'register', data))
-        .then((response) => {
-            const bearerToken = response.data.access_token;
-            localStorage.setItem('token', bearerToken);
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-        
+            .then((response) => {
+                const bearerToken = response.data.access_token;
+                localStorage.setItem('token', bearerToken);
+                window.location.href = '/';
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
     };
 
     return (
         <div className="relative flex items-center justify-center overflow-hidden bg-gray-900 min-h-screen">
             <img
-                src="https://images.unsplash.com/photo-1501523460185-2aa5d2a0f981?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2131&q=80"
+                src="/img/login.png"
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover object-right md:object-center opacity-20"
             />
@@ -138,9 +139,9 @@ const Register = ({ onButtonClick }) => {
                     {gendersLoaded ? (
                         <div>
                             <label htmlFor="gender" className="block text-sm font-medium leading-6 text-black">Sélection du genre</label>
-                            <Select 
-                                elements={genderList} 
-                                id="gender" 
+                            <Select
+                                elements={genderList}
+                                id="gender"
                                 value={gender}
                                 onChange={(e) => setGender(e.target.value)}
                             />
@@ -153,12 +154,11 @@ const Register = ({ onButtonClick }) => {
                         <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">S'inscrire</button>
                     </div>
                 </form>
-
                 <p className="mt-6 text-center text-sm text-black">
                     Déjà inscrit ?{' '}
-                    <span className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer" onClick={() => onButtonClick("login")}>
+                    <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
                         Se connecter <FaArrowRight className="inline ml-1" />
-                    </span>
+                    </Link>
                 </p>
             </div>
         </div>
