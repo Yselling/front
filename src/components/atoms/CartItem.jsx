@@ -2,6 +2,7 @@ import React from 'react';
 import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa';
 import { useDispatch } from 'react-redux'
 import { addOne, removeOne, removeProduct } from '../../redux/cartSlice'
+import { Link } from "react-router-dom";
 
 const CartItem = ({ item }) => {
     const dispatch = useDispatch();
@@ -20,11 +21,14 @@ const CartItem = ({ item }) => {
 
     return (
         <div key={item.id} className="cart-item flex justify-between items-center p-4 border-b">
-            <div className="cart-item-image w-16 h-16 bg-cover bg-center rounded-md" style={{ backgroundImage: `url(${item.image})` }}></div>
-            <div className="cart-item-details flex-grow ml-2">
-                <div className="cart-item-name font-bold">{item.name}</div>
-                <div className="cart-item-price">{item.price}€</div>
-            </div>
+            <Link to={`/product/${item.id}`}>
+                <div className="cart-item-image w-16 h-16 bg-cover bg-center rounded-md" style={{ backgroundImage: `url(${item.image})` }}>
+                </div>
+            </Link>
+                <div className="cart-item-details flex-grow ml-2">
+                    <div className="cart-item-name font-bold">{item.name}</div>
+                    <div className="cart-item-price">{item.price}€</div>
+                </div>
             <div className="cart-item-amount flex justify-between items-center">
                 <button onClick={() => handleDecreaseItem(item)} className="cart-item-amount-button text-gray-400 hover:text-gray-600">
                     <FaMinus />
