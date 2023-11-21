@@ -1,6 +1,7 @@
 const ProductCard = ({ product }) => {
     return (
-        <div className="bg-white rounded-md shadow-lg overflow-hidden">
+        // add a margin top of 5px
+        <div className="bg-white rounded-md shadow-lg overflow-hidden mt-5">
             <div className="relative">
                 <img
                     src={product.image}

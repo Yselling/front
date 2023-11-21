@@ -13,7 +13,7 @@ const Store = () => {
     const [categories, setCategories] = useState([]);
     const [activeCategories, setActiveCategories] = useState([]);
 
-    const fetchCategories = async () => {
+    useEffect(() => {
         axios(api("get", `categories`))
             .then((response) => {
                 setCategories(response.data.data);
@@ -21,10 +21,6 @@ const Store = () => {
             .catch((err) => {
                 console.error(err);
             });
-    };
-
-    useEffect(() => {
-        fetchCategories();
     }, []);
 
     const fetchProducts = async () => {
@@ -86,6 +82,7 @@ const Store = () => {
                 console.error(err);
             });
     }, [activeCategories]);
+
     return (
         <InfiniteScroll
             dataLength={filteredProducts.length}
