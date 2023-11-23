@@ -154,6 +154,24 @@ export const addProduct = createAsyncThunk('cart/addProduct', async (payload, { 
     }
 });
 
+export const cartCheckout = createAsyncThunk('carts/cartCheckout', async (payload, { dispatch }) => {
+    try {
+        let url = window.location.href;
+        url = url.split('?')[0];
+        let data = {
+            success_url: url + '?payment=success',
+            cancel_url: url + '?payment=cancel',
+        }
+        const response = await axios(api('post', 'carts/checkout', data, localStorage.getItem('token')));
+        let redirectUrl = response.data.url;
+        window.location.href = redirectUrl;
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+});
+
 export const { setCart, toggleCartDisplay } = cartSlice.actions
 
 export default cartSlice.reducer

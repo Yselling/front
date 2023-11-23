@@ -12,6 +12,7 @@ const Store = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [categories, setCategories] = useState([]);
     const [activeCategories, setActiveCategories] = useState([]);
+    const [isProductloaded, setIsProductLoaded] = useState(false);
 
     useEffect(() => {
         axios(api("get", `categories`))
@@ -32,6 +33,7 @@ const Store = () => {
         axios(api("post", "products", data))
             .then((response) => {
                 setFilteredProducts([...filteredProducts, ...response.data.data]);
+                setIsProductLoaded(true);
             })
             .catch((err) => {
                 console.error(err);
@@ -83,6 +85,20 @@ const Store = () => {
             });
     }, [activeCategories]);
 
+    const skeletonCards = Array.from({ length: 10 }, (_, index) => (
+        <div key={index} className="w-full skeleton-loader">
+            <div className="bg-white rounded-md shadow-lg overflow-hidden animate-pulse">
+                <div className="h-64 bg-gray-300"></div>
+                <div className="p-6">
+                    <div className="h-4 bg-gray-300 mb-4"></div>
+                    <div className="h-4 bg-gray-300 mb-4"></div>
+                    <div className="h-4 bg-gray-300 mb-4"></div>
+                    <div className="h-4 bg-gray-300"></div>
+                </div>
+            </div>
+        </div>
+    ));
+
     return (
         <InfiniteScroll
             dataLength={filteredProducts.length}
@@ -109,7 +125,13 @@ const Store = () => {
                         ))}
                     </div>
                 </div>
-                <ProductList products={filteredProducts} />
+                {isProductloaded ? (
+                    <ProductList products={filteredProducts} />
+                ) : (
+                    <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3 sm:gap-y-20 sm:gap-x-5">
+                        {skeletonCards}
+                    </div>
+                )}
             </div>
         </InfiniteScroll>
     )

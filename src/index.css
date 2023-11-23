@@ -46,3 +46,8 @@ code {
       background-position: 200% 0;
   }
 }
+
+.orders-wrapper {
+  overflow-y: auto;
+  max-height: 80vh;
+}

@@ -3,6 +3,7 @@ import CartList from '../atoms/CartList'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearCart } from '../../redux/cartSlice'
 import { toast } from 'react-toastify';
+import { cartCheckout } from '../../redux/cartSlice';
 
 const Cart = ({ cartRef }) => {
     const cart = useSelector((state) => state.cart.cart);
@@ -25,6 +26,23 @@ const Cart = ({ cartRef }) => {
         dispatch(clearCart());
     }
 
+    const handleCheckout = () => {
+        if (cart.items.length === 0) {
+            new toast('Votre panier est vide 🛒', {
+                position: "bottom-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: localStorage.getItem('theme') === 'dark' ? 'dark' : 'light',
+            });
+            return;
+        }
+        dispatch(cartCheckout());
+    }
+
     return (
         <div ref={cartRef} className="cart fixed right-0 top-0 bottom-0 w-80 z-10 bg-white shadow-lg transform translate-x-full overflow-y-auto">
             <CartList items={cart.items} />
@@ -33,7 +51,7 @@ const Cart = ({ cartRef }) => {
                     { cart.total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}€
                 </div>
                 <button onClick={handleClearCart} className="cart-button text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md shadow">Vider</button>
-                <button className="cart-button text-white bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-md shadow">Valider</button>
+                <button onClick={handleCheckout} className="cart-button text-white bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-md shadow">Valider</button>
             </div>
         </div>
     );

@@ -7,6 +7,7 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux'
 import { setCart, toggleCartDisplay } from './redux/cartSlice'
+import { toast } from 'react-toastify';
 
 const buttons = [
     { title: 'Boutique', link: 'store' },
@@ -40,6 +41,33 @@ function App() {
                 .catch((error) => {
                     console.error(error);
                 });
+        }
+        const urlParams = new URLSearchParams(window.location.search);
+        const payment = urlParams.get('payment');
+        if (payment) {
+            if (payment === 'success') {
+                new toast('Paiement effectué avec succès 💸', {
+                    position: "bottom-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: localStorage.getItem('theme') === 'dark' ? 'dark' : 'light',
+                });
+            } else if (payment === 'cancel') {
+                new toast('Paiement annulé 🛑', {
+                    position: "bottom-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: localStorage.getItem('theme') === 'dark' ? 'dark' : 'light',
+                });
+            }
         }
     }, []);
 
