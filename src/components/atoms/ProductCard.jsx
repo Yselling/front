@@ -9,16 +9,17 @@ const ProductCard = ({ product }) => {
                 />
             </div>
             <div className="p-6">
-                <div class="flex items-center gap-x-4 text-xs font-medium text-gray-500">
-                    <div class="text-gray-500 bg-blue-100 text-blue-500 px-4 py-2 rounded-md font-medium text-sm">
+                <div className="flex items-center gap-x-4 text-xs font-medium text-gray-500 mx-auto">
+                    <div className="text-gray-500 bg-blue-100 text-blue-500 px-4 py-2 rounded-md font-medium text-sm">
                         {product.category.name}
                     </div>
                     <span aria-hidden="true">&middot;</span>
-                    <div class="text-gray-500">
+                    <div className="text-gray-500">
                         {new Date(product.created_at).toLocaleDateString("fr-FR")}
                     </div>
-                    <div class="text-gray-500 bg-purple-100 text-purple-500 px-4 py-2 rounded-md font-medium text-sm mr-auto">
-                        ⚖️
+                    <span aria-hidden="true">&middot;</span>
+                    <div className="text-gray-500 bg-indigo-100 text-indigo-500 px-4 py-2 rounded-md font-medium text-sm">
+                         {(product.price * 1.15).toFixed(2)}€
                     </div>
                 </div>
                 <div className="group relative">

@@ -7,18 +7,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [user, setUser] = useState({
+        email: "",
+        password: "",
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const data = {
-            email: email,
-            password: password,
-        };
-
-        axios(api("post", 'login', data))
+        axios(api("post", 'login', user))
             .then((response) => {
                 const bearerToken = response.data.access_token;
                 localStorage.setItem('token', bearerToken);
@@ -65,16 +62,16 @@ const Login = () => {
                 <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-black">Adresse e-mail</label>
-                        <div className="mt-2">
+                        <div className="mt-2" style={{ margin: '10px' }}>
                             <input
                                 id="email"
                                 name="email"
                                 type="email"
                                 autoComplete="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={user.email}
+                                onChange={(e) => setUser({ ...user, email: e.target.value })}
                                 required
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
                     </div>
@@ -92,10 +89,10 @@ const Login = () => {
                                 name="password"
                                 type="password"
                                 autoComplete="current-password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={user.password}
+                                onChange={(e) => setUser({ ...user, password: e.target.value })}
                                 required
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
                     </div>

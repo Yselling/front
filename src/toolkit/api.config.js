@@ -1,6 +1,6 @@
 const api = (method, path, data = null, token = null) => {
     const config = {
-        baseUrl: "http://localhost/api/",
+        baseUrl: process.env.REACT_APP_API_URL,
         path: path,
         token: token,
     };
